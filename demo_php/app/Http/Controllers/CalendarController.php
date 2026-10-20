@@ -23,8 +23,8 @@ class CalendarController extends Controller
         $weekStart = isset($validated['week'])
             ? CarbonImmutable::createFromFormat('!Y-m-d', $validated['week'])->startOfWeek(CarbonImmutable::MONDAY)
             : CarbonImmutable::now()->startOfWeek(CarbonImmutable::MONDAY);
-        $days = collect(range(0, 6))->map(fn (int $offset) => $weekStart->addDays($offset));
-        $weekEnd = $weekStart->addDays(6);
+        $days = collect(range(0, 4))->map(fn (int $offset) => $weekStart->addDays($offset));
+        $weekEnd = $weekStart->addDays(4);
 
         $schedules = DB::table('work_schedules')
             ->whereDate('work_date', '>=', $weekStart->toDateString())
@@ -65,7 +65,7 @@ class CalendarController extends Controller
             ]);
         }
 
-        $dates = collect(range(0, 6))
+        $dates = collect(range(0, 4))
             ->map(fn (int $offset) => $monday->addDays($offset)->toDateString());
         $allowedKeys = $dates->all();
         $rules = ['schedule' => ['required', 'array']];

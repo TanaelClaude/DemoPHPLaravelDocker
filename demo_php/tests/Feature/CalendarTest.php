@@ -52,6 +52,9 @@ class CalendarTest extends TestCase
         $response->assertOk()
             ->assertSee('lundi')
             ->assertSee('02/03')
+            ->assertSee('vendredi')
+            ->assertDontSee('samedi')
+            ->assertDontSee('dimanche')
             ->assertSee('08:30 - 16:30')
             ->assertSee('Votre calendrier')
             ->assertSee('Other Member');
@@ -77,8 +80,6 @@ class CalendarTest extends TestCase
                 '2026-03-04' => ['start' => '', 'end' => ''],
                 '2026-03-05' => ['start' => '', 'end' => ''],
                 '2026-03-06' => ['start' => '', 'end' => ''],
-                '2026-03-07' => ['start' => '', 'end' => ''],
-                '2026-03-08' => ['start' => '', 'end' => ''],
             ],
         ])->assertRedirect(route('calendar.index', ['week' => '2026-03-02']))
             ->assertSessionHas('status', 'Votre semaine a été validée.');
@@ -114,8 +115,6 @@ class CalendarTest extends TestCase
             '2026-03-04' => ['start' => '', 'end' => ''],
             '2026-03-05' => ['start' => '', 'end' => ''],
             '2026-03-06' => ['start' => '', 'end' => ''],
-            '2026-03-07' => ['start' => '', 'end' => ''],
-            '2026-03-08' => ['start' => '', 'end' => ''],
         ];
 
         $this->actingAs($me)->post('/calendar/2026-03-02/validate', ['schedule' => $week])
@@ -132,10 +131,10 @@ class CalendarTest extends TestCase
     {
         $me = User::factory()->create();
         $schedule = array_fill_keys(
-            ['2026-03-02', '2026-03-03', '2026-03-04', '2026-03-05', '2026-03-06', '2026-03-07', '2026-03-08'],
+            ['2026-03-02', '2026-03-03', '2026-03-04', '2026-03-05', '2026-03-06'],
             ['start' => '', 'end' => ''],
         );
-        $schedule['2026-03-09'] = ['start' => '09:00', 'end' => '17:00'];
+        $schedule['2026-03-07'] = ['start' => '09:00', 'end' => '17:00'];
 
         $this->actingAs($me)->post('/calendar/2026-03-02/validate', ['schedule' => $schedule])
             ->assertSessionHasErrors('schedule');
