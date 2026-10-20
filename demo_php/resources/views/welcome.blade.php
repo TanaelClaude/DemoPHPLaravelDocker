@@ -10,6 +10,7 @@
 	<header class="welcome-nav">
 		<a class="brand" href="{{ route('home') }}">Demo<span>.</span></a>
 		<div class="account-actions">
+			<a class="calendar-link" href="{{ route('calendar.index') }}">Calendrier <span aria-hidden="true">→</span></a>
 			<button class="delete-account-button" type="button" onclick="document.getElementById('delete-account-dialog').showModal()">Supprimer mon compte</button>
 			<form method="POST" action="{{ route('logout') }}">
 				@csrf
