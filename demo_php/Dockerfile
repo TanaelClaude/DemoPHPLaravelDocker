@@ -13,8 +13,8 @@ RUN composer install --no-interaction --prefer-dist --no-scripts --no-progress -
 FROM php:8.3-apache
 
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends libonig-dev \
-    && docker-php-ext-install -j"$(nproc)" pdo_mysql mbstring bcmath exif pcntl \
+    && apt-get install -y --no-install-recommends libonig-dev libsqlite3-dev \
+    && docker-php-ext-install -j"$(nproc)" pdo_mysql pdo_sqlite mbstring bcmath exif pcntl \
     && a2enmod rewrite \
     && rm -rf /var/lib/apt/lists/*
 
