@@ -13,6 +13,10 @@
         <h1>Connexion</h1>
         <p class="auth-subtitle">Connectez-vous pour accéder à votre espace.</p>
 
+        @if (session('status'))
+            <div class="form-success" role="status">{{ session('status') }}</div>
+        @endif
+
         @if ($errors->any())
             <div class="form-alert" role="alert">{{ $errors->first() }}</div>
         @endif

@@ -39,10 +39,6 @@ class AuthenticationTest extends TestCase
             'password_confirmation' => 'StrongPass123!',
         ]);
 
-                $this->viteHotFile = sys_get_temp_dir().'/laravel-vite-hot-'.uniqid();
-                file_put_contents($this->viteHotFile, 'http://localhost:5173');
-                Vite::useHotFile($this->viteHotFile);
-
         $user = User::where('email', 'alice@example.com')->firstOrFail();
 
         $this->assertNotSame('StrongPass123!', $user->password);
@@ -79,6 +75,45 @@ class AuthenticationTest extends TestCase
         $this->post('/logout')->assertRedirect(route('login'));
         $this->assertGuest();
         $this->get('/')->assertRedirect(route('login'));
+    }
+
+    public function test_account_deletion_requires_the_current_password(): void
+    {
+        $user = User::factory()->create(['password' => 'StrongPass123!']);
+        $this->actingAs($user);
+
+        $this->delete('/account', ['password' => 'wrong-password'])
+            ->assertSessionHasErrors('password');
+
+        $this->assertDatabaseHas('users', ['id' => $user->id]);
+        $this->assertAuthenticatedAs($user);
+
+        $this->delete('/account', ['password' => 'StrongPass123!'])
+            ->assertRedirect(route('login'))
+            ->assertSessionHas('status', 'Votre compte a été supprimé.');
+
+        $this->assertDatabaseMissing('users', ['id' => $user->id]);
+        $this->assertGuest();
+        $this->get('/')->assertRedirect(route('login'));
+    }
+
+    public function test_guest_cannot_delete_an_account(): void
+    {
+        $this->delete('/account', ['password' => 'anything'])
+            ->assertRedirect(route('login'));
+    }
+
+    public function test_deleted_default_account_is_not_recreated_by_a_later_seed(): void
+    {
+        $this->seed();
+        $user = User::where('email', 'admin@example.com')->firstOrFail();
+
+        $this->actingAs($user)->delete('/account', ['password' => 'ChangeMe123!'])
+            ->assertRedirect(route('login'));
+
+        $this->seed();
+
+        $this->assertDatabaseMissing('users', ['email' => 'admin@example.com']);
     }
 
     public function test_registration_validates_password_confirmation_and_unique_email(): void
