@@ -9,3 +9,107 @@
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
 }
+
+:root {
+    font-family: var(--font-sans);
+    color: #14231f;
+    background: #f4f7f4;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; min-height: 100vh; }
+a { color: #187a5a; font-weight: 650; text-decoration: none; }
+a:hover { color: #105940; }
+
+.auth-page {
+    display: grid;
+    min-height: 100vh;
+    place-items: center;
+    padding: 32px 18px;
+    background: radial-gradient(ellipse at 50% 0%, #dff1e7 0%, #f4f7f4 58%);
+}
+.auth-card {
+    width: min(100%, 440px);
+    padding: 42px;
+    border: 1px solid #e5ebe6;
+    border-radius: 22px;
+    background: #fff;
+    box-shadow: 0 24px 70px #193d2d12;
+}
+.brand { color: #14231f; font-size: 1.25rem; font-weight: 800; letter-spacing: -.06em; }
+.brand span { color: #27a474; }
+.eyebrow { margin: 34px 0 8px; color: #27835f; font-size: .7rem; font-weight: 800; letter-spacing: .15em; }
+.auth-card h1, .welcome-content h1 { margin: 0; font-size: clamp(2rem, 7vw, 2.6rem); letter-spacing: -.055em; line-height: 1.1; }
+.auth-subtitle { margin: 12px 0 26px; color: #6c7c74; line-height: 1.6; }
+.auth-form { display: grid; gap: 10px; }
+.auth-form > label:not(.remember-row) { margin-top: 8px; color: #34483e; font-size: .88rem; font-weight: 650; }
+.auth-form input:not([type=checkbox]) {
+    width: 100%;
+    min-height: 48px;
+    padding: 0 14px;
+    border: 1px solid #dce5df;
+    border-radius: 10px;
+    outline: none;
+    background: #fbfcfb;
+    font: inherit;
+}
+.auth-form input:focus { border-color: #43a77c; box-shadow: 0 0 0 3px #43a77c20; }
+.remember-row { display: flex; align-items: center; gap: 8px; margin: 8px 0; color: #64756c; font-size: .88rem; }
+.primary-button {
+    display: flex;
+    min-height: 49px;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 10px;
+    padding: 0 16px;
+    border: 0;
+    border-radius: 10px;
+    background: #197854;
+    color: white;
+    cursor: pointer;
+    font: inherit;
+    font-weight: 700;
+}
+.primary-button:hover { background: #126346; }
+.form-alert { margin: 0 0 18px; padding: 12px 14px; border: 1px solid #f1c8c4; border-radius: 10px; background: #fff5f4; color: #a53d36; font-size: .88rem; }
+.form-success { margin: 0 0 18px; padding: 12px 14px; border: 1px solid #c9e8d3; border-radius: 10px; background: #f0faf3; color: #247446; font-size: .88rem; }
+.form-alert ul { margin: 0; padding-left: 18px; }
+.auth-footer { margin: 24px 0 0; color: #718078; text-align: center; font-size: .9rem; }
+
+.welcome-page { background: #f4f7f4; }
+.welcome-nav { display: flex; height: 76px; align-items: center; justify-content: space-between; padding: 0 max(7vw, 24px); border-bottom: 1px solid #e5ebe6; background: #fff; }
+.account-actions { display: flex; align-items: center; gap: 10px; }
+.logout-button { padding: 10px 15px; border: 1px solid #dce5df; border-radius: 9px; background: white; color: #34483e; cursor: pointer; font: inherit; font-size: .88rem; font-weight: 650; }
+.logout-button:hover { background: #f4f7f4; }
+.delete-account-button { padding: 10px 15px; border: 1px solid #e8b6b2; border-radius: 9px; background: #fff; color: #b42318; cursor: pointer; font: inherit; font-size: .88rem; font-weight: 650; }
+.delete-account-button:hover { border-color: #b42318; background: #fff1f0; }
+.delete-account-dialog { width: min(calc(100% - 32px), 460px); padding: 0; border: 1px solid #e5ebe6; border-radius: 18px; box-shadow: 0 24px 80px #14231f30; }
+.delete-account-dialog::backdrop { background: #14231f80; backdrop-filter: blur(3px); }
+.delete-account-form { padding: 30px; }
+.delete-account-form .eyebrow { margin: 0 0 8px; color: #b42318; }
+.delete-account-form h2 { margin: 0; font-size: 1.5rem; letter-spacing: -.04em; }
+.delete-account-form > p:not(.eyebrow) { color: #687970; line-height: 1.6; }
+.delete-account-form label { display: block; margin: 20px 0 8px; color: #34483e; font-size: .88rem; font-weight: 650; }
+.delete-account-form input { width: 100%; min-height: 46px; padding: 0 12px; border: 1px solid #dce5df; border-radius: 9px; font: inherit; }
+.delete-account-form input:focus { border-color: #43a77c; outline: 3px solid #43a77c20; }
+.delete-account-error { color: #b42318; font-size: .88rem; }
+.dialog-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 24px; }
+.dialog-cancel-button { padding: 10px 15px; border: 1px solid #dce5df; border-radius: 9px; background: #fff; color: #34483e; cursor: pointer; font: inherit; font-size: .88rem; font-weight: 650; }
+.welcome-content { width: min(100% - 40px, 900px); margin: 12vh auto; padding: 64px; border: 1px solid #e5ebe6; border-radius: 24px; background: linear-gradient(135deg, white, #f7fbf8); box-shadow: 0 24px 70px #193d2d0a; }
+.welcome-content .eyebrow { margin-top: 0; }
+.welcome-content h1 span { color: #27a474; }
+.welcome-content > p:not(.eyebrow) { margin-top: 18px; color: #687970; line-height: 1.7; }
+.welcome-content strong { color: #34483e; }
+.welcome-badge { display: inline-flex; align-items: center; gap: 9px; margin-top: 20px; padding: 9px 13px; border: 1px solid #dceee4; border-radius: 100px; background: #eff8f2; color: #297653; font-size: .82rem; font-weight: 650; }
+.welcome-badge span { width: 8px; height: 8px; border-radius: 50%; background: #35a96e; }
+
+@media (max-width: 540px) {
+    .auth-card { padding: 30px 24px; }
+    .welcome-content { margin-top: 8vh; padding: 34px 26px; }
+    .welcome-nav { padding: 0 16px; }
+    .account-actions { gap: 6px; }
+    .delete-account-button, .logout-button { padding: 9px 10px; font-size: .76rem; }
+    .delete-account-form { padding: 24px; }
+}

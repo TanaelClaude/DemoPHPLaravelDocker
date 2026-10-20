@@ -9,5 +9,6 @@ fi
 
 php artisan package:discover --ansi
 php artisan migrate --force --no-interaction
+php artisan db:seed --force --no-interaction
 
 exec apache2-foreground
